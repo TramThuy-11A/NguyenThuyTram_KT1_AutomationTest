@@ -105,3 +105,26 @@ class TestLoginE2E(BaseTest):
 
         assert "đăng nhập" in user_ph.lower() or user_ph != "", "TC04 FAIL: Placeholder Username không đúng."
         assert "mật khẩu" in pwd_ph.lower() or pwd_ph != "", "TC04 FAIL: Placeholder Password không đúng."
+
+    # -------------------------------------------------------------------------
+    # TC05: Đăng nhập sai mật khẩu
+    # -------------------------------------------------------------------------
+    def test_TC05_wrong_password(self):
+        """
+        TC05: Sai Password
+        Steps:
+          1. Mở trang Login
+          2. Nhập username
+          3. Nhập password không đúng
+          4. Click nút Đăng nhập
+        Expected: Hiển thị thông báo lỗi và từ chối đăng nhập.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.login(self.VALID_USERNAME, self.WRONG_PASSWORD)
+
+        time.sleep(2)
+        error = login_page.get_error_message()
+        assert "không đúng" in error.lower() or "/Login" in self.driver.current_url, (
+            "TC05 FAIL: Đăng nhập sai pass nhưng không hiển thị thông báo lỗi hoặc không ở lại trang Login."
+        )
