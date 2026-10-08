@@ -173,3 +173,23 @@ class TestLoginE2E(BaseTest):
         assert "google" in self.driver.current_url.lower(), (
             f"TC07 FAIL: Không chuyển hướng đến Google. URL: {self.driver.current_url}"
         )
+
+    # -------------------------------------------------------------------------
+    # TC08: Kiểm tra chức năng 'Bạn quên mật khẩu đăng nhập ?'
+    # -------------------------------------------------------------------------
+    def test_TC08_forgot_password_link(self):
+        """
+        TC08: Quên mật khẩu
+        Steps:
+          1. Mở trang Login
+          2. Click vào liên kết 'Bạn quên mật khẩu đăng nhập ?'
+        Expected: Chuyển hướng đến trang khôi phục mật khẩu (/Login/GetPass).
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.click_forgot_password()
+
+        time.sleep(2)
+        assert "GetPass" in self.driver.current_url, (
+            f"TC08 FAIL: Không chuyển đến trang GetPass. URL: {self.driver.current_url}"
+        )
