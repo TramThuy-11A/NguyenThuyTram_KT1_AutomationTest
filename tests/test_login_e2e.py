@@ -214,3 +214,25 @@ class TestLoginE2E(BaseTest):
         time.sleep(2)
         # Hệ thống hoặc tự trim hoặc báo lỗi
         assert True
+
+    # -------------------------------------------------------------------------
+    # TC10: Mật khẩu phân biệt chữ hoa/thường
+    # -------------------------------------------------------------------------
+    def test_TC10_password_case_sensitive(self):
+        """
+        TC10: Mật khẩu phân biệt chữ hoa/thường
+        Steps:
+          1. Mở trang Login
+          2. Nhập username hợp lệ
+          3. Nhập password sai định dạng hoa/thường
+          4. Click nút Đăng nhập
+        Expected: Hệ thống từ chối và ở lại trang Login.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.login(self.VALID_USERNAME, self.VALID_PASSWORD.lower())
+
+        time.sleep(1.5)
+        assert "/Login" in self.driver.current_url, (
+            "TC10 FAIL: Mật khẩu không phân biệt hoa thường."
+        )
