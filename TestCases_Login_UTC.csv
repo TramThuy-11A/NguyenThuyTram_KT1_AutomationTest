@@ -1,0 +1,66 @@
+ufeffSTT,Mã Test Case,Nhóm kiểm thử,Tiêu đề kiểm thử (Description),Điều kiện tiên quyết (Preconditions),Các bước thực hiện (Steps),Dữ liệu kiểm thử (Test Data),Kết quả mong đợi (Expected Output),Loại kiểm thử (Type),Trạng thái (Status)
+1,TC1,Đăng nhập,Đăng nhập thành công với tài khoản hợp lệ,Đã có tài khoản hợp lệ được cấp quyền,"1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username hợp lệ
+3. Nhập password hợp lệ
+4. Click nút Đăng nhập",User: test_user_placeholder | Pass: test_password_placeholder,Đăng nhập thành công và chuyển hướng thoát khỏi trang /Login,Positive,Skipped (Chưa cấp user thật)
+2,TC2,Đăng nhập,Để trống ô Username,"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Để trống ô Username
+3. Nhập password hợp lệ
+4. Click nút Đăng nhập",User: [Để trống] | Pass: test_password_placeholder,Hệ thống chặn gửi form hoặc ở lại trang Login / hiển thị thông báo lỗi,Negative,Passed
+3,TC3,Đăng nhập,Để trống ô Password,"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username hợp lệ
+3. Để trống ô Password
+4. Click nút Đăng nhập",User: test_user_placeholder | Pass: [Để trống],Hệ thống chặn gửi form hoặc ở lại trang Login / hiển thị thông báo lỗi,Negative,Passed
+4,TC4,Giao diện (UI),Kiểm tra placeholder khi để trống cả hai trường,"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Quan sát ô Username và Password",Không có,Placeholder 'Tên đăng nhập' và 'Mật khẩu' hiển thị đúng rõ ràng,UI,Passed
+5,TC5,Đăng nhập,Đăng nhập với mật khẩu không đúng,"Tài khoản tồn tại trong hệ thống","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username hợp lệ
+3. Nhập password không đúng
+4. Click nút Đăng nhập",User: test_user_placeholder | Pass: WrongPass!999,Hiển thị thông báo lỗi 'Tài khoản hoặc mật khẩu không đúng.',Negative,Passed
+6,TC6,Đăng nhập,Đăng nhập với tên tài khoản không tồn tại,"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username không tồn tại
+3. Nhập mật khẩu bất kỳ
+4. Click nút Đăng nhập",User: wrong_user_xyz | Pass: test_password_placeholder,Hiển thị thông báo lỗi và từ chối đăng nhập,Negative,Passed
+7,TC7,Đăng nhập,Để trống cả Username và Password (click trực tiếp nút Login),"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Để trống cả 2 trường
+3. Click nút Đăng nhập",User: [Để trống] | Pass: [Để trống],Hệ thống không cho phép đăng nhập và ở lại trang Login,Negative,Passed
+8,TC8,Tích hợp OAuth,Đăng nhập bằng nút 'Đăng nhập bằng e-mail UTC',"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Click nút 'Đăng nhập bằng e-mail UTC'",Không có,Chuyển hướng người dùng sang trang xác thực Google OAuth (accounts.google.com),Integration,Passed
+9,TC9,Quên mật khẩu,Kiểm tra liên kết 'Bạn quên mật khẩu đăng nhập ?',"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Click liên kết 'Bạn quên mật khẩu đăng nhập ?'",Không có,Chuyển hướng thành công sang trang khôi phục mật khẩu (/Login/GetPass),Functional,Passed
+10,TC10,Đăng nhập,Sử dụng phím Enter trên bàn phím để submit form,"Đã có tài khoản hợp lệ","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username hợp lệ
+3. Nhập password hợp lệ
+4. Nhấn phím Enter trên bàn phím",User: test_user_placeholder | Pass: test_password_placeholder,Form tự động gửi dữ liệu và đăng nhập thành công vào hệ thống,Positive,Skipped (Chưa cấp user thật)
+11,TC11,Xử lý dữ liệu,Tên đăng nhập có chứa khoảng trắng ở đầu hoặc cuối,"Đã có tài khoản hợp lệ","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username có khoảng trắng đầu/cuối
+3. Nhập password hợp lệ
+4. Click nút Đăng nhập",User: ' test_user_placeholder ' | Pass: test_password_placeholder,Hệ thống tự động cắt tỉa (trim) khoảng trắng HOẶC báo lỗi tài khoản không đúng,Boundary,Passed
+12,TC12,Bảo mật,Kiểm tra tính phân biệt chữ hoa / chữ thường của Mật khẩu,"Đã có tài khoản hợp lệ","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username hợp lệ
+3. Nhập password sai chữ hoa/thường
+4. Click nút Đăng nhập",User: test_user_placeholder | Pass: test_wrong_case_password,Hệ thống phân biệt chữ hoa chữ thường và từ chối đăng nhập,Security,Passed
+13,TC13,Bảo mật,Chống tấn công SQL Injection vào ô Username/Password,"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập chuỗi SQL Injection vào ô Username/Password
+3. Click nút Đăng nhập",Payload: ' OR '1'='1 -- | admin'--,Hệ thống ngăn chặn tấn công và không làm lộ cấu trúc cơ sở dữ liệu,Security,Passed
+14,TC14,Kiểm thử giới hạn,Nhập chuỗi ký tự quá dài (vượt 255 ký tự),"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập chuỗi 300+ ký tự vào ô Username và Password
+3. Click nút Đăng nhập",Chuỗi 300 ký tự 'A',Hệ thống xử lý an toàn không bị crash hoặc tràn giao diện,Boundary,Passed
+15,TC15,Tiện ích người dùng,Copy-paste mật khẩu vào ô Password,"Đã có tài khoản hợp lệ","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập username hợp lệ
+3. Copy chuỗi mật khẩu từ bên ngoài và paste vào ô Password
+4. Click nút Đăng nhập",User: test_user_placeholder | Pass: test_password_placeholder,Cho phép dán mật khẩu và đăng nhập thành công vào trang chủ,Functional,Skipped (Chưa cấp user thật)
+16,TC16,Bảo mật,Kiểm tra cơ chế phòng thủ Brute Force (đăng nhập sai liên tiếp),"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Nhập sai mật khẩu liên tiếp nhiều lần (6 lần)",Mật khẩu sai tăng dần,Hệ thống yêu cầu xác thực CAPTCHA hoặc tạm khóa tạm thời tài khoản/IP,Security,Passed
+17,TC17,Bảo mật UI,Kiểm tra thuộc tính ẩn mật khẩu (type='password'),"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Kiểm tra thuộc tính type của ô Password trong DOM",Không có,Ô mật khẩu có thuộc tính type='password' để ẩn ký tự che chắn thông tin,Security / UI,Passed
+18,TC18,Responsive Mobile,Kiểm tra khả năng hiển thị trên màn hình Mobile (375x812px),"Trang đăng nhập hiển thị bình thường","1. Đặt kích thước màn hình 375x812px
+2. Mở trang vanphongdientu.utc.edu.vn/Login
+3. Quan sát vị trí ô nhập và nút Đăng nhập",Viewport 375x812px,Các thành phần form nằm trọn trong viewport không bị tràn màn hình ngang,Responsive / UX,XFailed (Bug UTC-001)
+19,TC19,Khả năng tiếp cận (A11y),Kiểm tra điều hướng bàn phím bằng phím Tab (WCAG 2.1),"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Focus vào ô Username
+3. Nhấn phím Tab
+4. Nhấn phím Tab lần tiếp theo",Phím Tab / Shift+Tab,Focus chuyển theo thứ tự hợp lý: Username -> Password -> Nút bấm,Accessibility,Passed
+20,TC20,UI Smoke Test,Kiểm tra tính toàn vẹn của Logo/Banner và liên kết Footer,"Trang đăng nhập hiển thị bình thường","1. Mở trang vanphongdientu.utc.edu.vn/Login
+2. Kiểm tra hiển thị hình ảnh Logo/Banner
+3. Kiểm tra link Trợ giúp và Ý kiến phản hồi",Không có,Ảnh Logo hiển thị đầy đủ không bị lỗi 404 và các liên kết trỏ đúng địa chỉ,UI Smoke Test,Passed
