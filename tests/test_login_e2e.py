@@ -5,6 +5,8 @@
 
 import time
 import pytest
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from base.base_test import BaseTest
 from pages.login_page import LoginPage
 from pages.dashboard_page import DashboardPage
@@ -315,4 +317,31 @@ class TestLoginE2E(BaseTest):
         field_type = login_page.get_password_field_type()
         assert field_type == "password", (
             f"TC14 FAIL: Ô mật khẩu không phải type='password' (thực tế: '{field_type}')"
+        )
+
+    # -------------------------------------------------------------------------
+    # TC15: Focus bàn phím / TabIndex (Accessibility WCAG 2.1)
+    # -------------------------------------------------------------------------
+    def test_TC15_keyboard_tab_navigation(self):
+        """
+        TC15: Điều hướng bằng phím Tab
+        Steps:
+          1. Mở trang Login
+          2. Focus vào ô Username
+          3. Nhấn phím Tab
+        Expected: Focus chuyển sang ô Password (userpwd).
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+
+        # Focus vào username
+        user_el = self.driver.find_element(*login_page.USERNAME_INPUT)
+        user_el.click()
+
+        # Tab -> Password
+        ActionChains(self.driver).key_down(Keys.TAB).key_up(Keys.TAB).perform()
+        time.sleep(0.3)
+        active_name = self.driver.execute_script("return document.activeElement.getAttribute('name');")
+        assert "userpwd" in (active_name or "").lower(), (
+            f"TC15 FAIL: Tab không chuyển sang ô Password. Active: '{active_name}'"
         )
