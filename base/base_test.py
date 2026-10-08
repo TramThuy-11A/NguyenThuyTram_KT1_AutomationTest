@@ -22,8 +22,8 @@ class BaseTest:
     FORGOT_PASS_URL = "https://vanphongdientu.utc.edu.vn/Login/GetPass"
     
     # Credentials mẫu (dùng cho test)
-    VALID_USERNAME = "test_user_placeholder"
-    VALID_PASSWORD = "test_password_placeholder"
+    VALID_USERNAME = os.getenv("UTC_USERNAME", "")
+    VALID_PASSWORD = os.getenv("UTC_PASSWORD", "")
     WRONG_USERNAME = "wrong_user_xyz"
     WRONG_PASSWORD = "WrongPass!999"
 

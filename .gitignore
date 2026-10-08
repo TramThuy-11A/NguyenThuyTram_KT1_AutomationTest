@@ -3,5 +3,7 @@ __pycache__/
 .pytest_cache/
 reports/*.html
 reports/assets/
+reports/allure-results/
+reports/allure-report/
 screenshots/*.png
 .env

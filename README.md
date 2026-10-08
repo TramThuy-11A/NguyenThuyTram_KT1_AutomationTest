@@ -18,6 +18,7 @@ e2e/
 |   |-- test_watchlist_e2e.py # Test suite Watchlist E2E (tương đương WatchlistE2ETest.java)
 |-- reports/                 # Báo cáo test_report.html tự động sinh
 |-- screenshots/             # Ảnh chụp màn hình khi test thất bại
+|-- docs/                    # Ảnh minh họa Allure report
 |-- pytest.ini               # Cấu hình Pytest
 ```
 
@@ -27,6 +28,14 @@ Mở Terminal / PowerShell và di chuyển vào thư mục:
 
 ```powershell
 cd C:\SeleniumTest\e2e
+```
+
+Đặt thông tin tài khoản kiểm thử qua biến môi trường trước khi chạy các test cần
+đăng nhập thành công:
+
+```powershell
+$env:UTC_USERNAME = "ten_tai_khoan"
+$env:UTC_PASSWORD = "mat_khau"
 ```
 
 ### 1. Chạy toàn bộ các kịch bản kiểm thử:
@@ -54,3 +63,7 @@ Sau khi chạy xong, mở file:
 ```powershell
 start reports\test_report.html
 ```
+
+### 6. Ảnh chụp Allure report
+
+![Tổng quan Allure report](docs/allure-report.png)
