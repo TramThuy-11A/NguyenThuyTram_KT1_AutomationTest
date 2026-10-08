@@ -298,3 +298,21 @@ class TestLoginE2E(BaseTest):
             login_page.login(self.VALID_USERNAME, f"Wrong_Attempt_{i}")
             time.sleep(1)
         assert "/Login" in self.driver.current_url
+
+    # -------------------------------------------------------------------------
+    # TC14: Trạng thái ẩn/hiện Password (type attribute)
+    # -------------------------------------------------------------------------
+    def test_TC14_password_type_hidden(self):
+        """
+        TC14: Kiểm tra type attribute của ô Password
+        Steps:
+          1. Mở trang Login
+          2. Đọc thuộc tính type của ô Password
+        Expected: Thuộc tính type='password' để ẩn ký tự.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        field_type = login_page.get_password_field_type()
+        assert field_type == "password", (
+            f"TC14 FAIL: Ô mật khẩu không phải type='password' (thực tế: '{field_type}')"
+        )
