@@ -128,3 +128,25 @@ class TestLoginE2E(BaseTest):
         assert "không đúng" in error.lower() or "/Login" in self.driver.current_url, (
             "TC05 FAIL: Đăng nhập sai pass nhưng không hiển thị thông báo lỗi hoặc không ở lại trang Login."
         )
+
+    # -------------------------------------------------------------------------
+    # TC06: Đăng nhập với tên tài khoản không tồn tại
+    # -------------------------------------------------------------------------
+    def test_TC06_wrong_username(self):
+        """
+        TC06: Sai Username
+        Steps:
+          1. Mở trang Login
+          2. Nhập username không tồn tại
+          3. Nhập password bất kỳ
+          4. Click nút Đăng nhập
+        Expected: Hệ thống từ chối đăng nhập và ở lại trang Login.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.login(self.WRONG_USERNAME, self.VALID_PASSWORD)
+
+        time.sleep(2)
+        assert "/Login" in self.driver.current_url, (
+            "TC06 FAIL: Đăng nhập sai username nhưng không ở lại trang Login."
+        )
