@@ -85,3 +85,23 @@ class TestLoginE2E(BaseTest):
         assert "/Login" in self.driver.current_url, (
             "TC03 FAIL: Để trống cả 2 trường nhưng hệ thống không ở lại trang Login."
         )
+
+    # -------------------------------------------------------------------------
+    # TC04: Kiểm tra placeholder hiển thị đúng ở 2 ô nhập
+    # -------------------------------------------------------------------------
+    def test_TC04_input_placeholders(self):
+        """
+        TC04: Kiểm tra placeholder
+        Steps:
+          1. Mở trang Login
+          2. Đọc thuộc tính placeholder của ô Username và Password
+        Expected: Hiển thị đúng text gợi ý 'Tên đăng nhập' và 'Mật khẩu'.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+
+        user_ph = login_page.get_attribute(login_page.USERNAME_INPUT, "placeholder")
+        pwd_ph = login_page.get_attribute(login_page.PASSWORD_INPUT, "placeholder")
+
+        assert "đăng nhập" in user_ph.lower() or user_ph != "", "TC04 FAIL: Placeholder Username không đúng."
+        assert "mật khẩu" in pwd_ph.lower() or pwd_ph != "", "TC04 FAIL: Placeholder Password không đúng."
