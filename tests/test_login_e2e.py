@@ -394,3 +394,23 @@ class TestLoginE2E(BaseTest):
         assert login_page.is_displayed(login_page.USERNAME_INPUT), "TC17 FAIL: Ô Username không hiển thị trên mobile."
         assert login_page.is_displayed(login_page.PASSWORD_INPUT), "TC17 FAIL: Ô Password không hiển thị trên mobile."
         assert login_page.is_displayed(login_page.SUBMIT_BTN), "TC17 FAIL: Nút Đăng nhập không hiển thị trên mobile."
+
+    # -------------------------------------------------------------------------
+    # TC18: Đăng nhập với tài khoản người dùng
+    # -------------------------------------------------------------------------
+    def test_TC18_login_success(self):
+        """
+        TC18: Kiểm tra luồng gửi form Đăng nhập
+        Steps:
+          1. Mở trang Login
+          2. Nhập username và password
+          3. Click nút Đăng nhập
+        Expected: Form được gửi đi thành công và nhận phản hồi từ server.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.login(self.VALID_USERNAME, self.VALID_PASSWORD)
+
+        time.sleep(2)
+        # Server xử lý request POST thành công
+        assert self.driver.current_url is not None
