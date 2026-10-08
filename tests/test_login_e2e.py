@@ -345,3 +345,32 @@ class TestLoginE2E(BaseTest):
         assert "userpwd" in (active_name or "").lower(), (
             f"TC15 FAIL: Tab không chuyển sang ô Password. Active: '{active_name}'"
         )
+
+    # -------------------------------------------------------------------------
+    # TC16: Logo / Banner & Footer Links
+    # -------------------------------------------------------------------------
+    def test_TC16_logo_and_footer_links(self):
+        """
+        TC16: Kiểm tra Logo và các liên kết Footer
+        Steps:
+          1. Mở trang Login
+          2. Kiểm tra ảnh Logo hiển thị và tải thành công
+          3. Kiểm tra liên kết Trợ giúp ở Footer
+        Expected: Logo tải thành công không bị 404, footer link hợp lệ.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+
+        # Kiểm tra logo
+        assert login_page.is_logo_displayed(), "TC16 FAIL: Logo không hiển thị."
+        logo_img = self.driver.find_element(*login_page.LOGO_IMG)
+        is_loaded = self.driver.execute_script(
+            "return arguments[0].complete && arguments[0].naturalWidth > 0;", logo_img
+        )
+        assert is_loaded, "TC16 FAIL: Ảnh logo bị hỏng / 404."
+
+        # Kiểm tra Footer help link
+        support_link = self.driver.find_element(*login_page.SUPPORT_LINK)
+        assert "hotrokythuat.utc.edu.vn" in support_link.get_attribute("href"), (
+            "TC16 FAIL: Link hỗ trợ kỹ thuật sai."
+        )
