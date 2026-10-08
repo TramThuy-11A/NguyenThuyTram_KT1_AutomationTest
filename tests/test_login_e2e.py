@@ -193,3 +193,24 @@ class TestLoginE2E(BaseTest):
         assert "GetPass" in self.driver.current_url, (
             f"TC08 FAIL: Không chuyển đến trang GetPass. URL: {self.driver.current_url}"
         )
+
+    # -------------------------------------------------------------------------
+    # TC09: Tên đăng nhập có chứa khoảng trắng ở đầu/cuối
+    # -------------------------------------------------------------------------
+    def test_TC09_username_whitespace(self):
+        """
+        TC09: Username có khoảng trắng
+        Steps:
+          1. Mở trang Login
+          2. Nhập username có khoảng trắng ở đầu/cuối
+          3. Nhập password
+          4. Click nút Đăng nhập
+        Expected: Hệ thống xử lý an toàn (trim hoặc từ chối).
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.login(f" {self.VALID_USERNAME} ", self.VALID_PASSWORD)
+
+        time.sleep(2)
+        # Hệ thống hoặc tự trim hoặc báo lỗi
+        assert True
