@@ -236,3 +236,25 @@ class TestLoginE2E(BaseTest):
         assert "/Login" in self.driver.current_url, (
             "TC10 FAIL: Mật khẩu không phân biệt hoa thường."
         )
+
+    # -------------------------------------------------------------------------
+    # TC11: Chống tấn công SQL Injection
+    # -------------------------------------------------------------------------
+    def test_TC11_sql_injection(self):
+        """
+        TC11: Ngăn chặn SQL Injection
+        Steps:
+          1. Mở trang Login
+          2. Nhập payload SQL Injection vào Username/Password
+          3. Click nút Đăng nhập
+        Expected: Hệ thống từ chối tấn công và ở lại trang Login.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        payload = "' OR '1'='1"
+        login_page.login(payload, payload)
+
+        time.sleep(2)
+        assert "/Login" in self.driver.current_url, (
+            f"TC11 FAIL: Lỗ hổng SQL Injection với payload {payload}"
+        )
