@@ -62,3 +62,26 @@ class TestLoginE2E(BaseTest):
         assert "/Login" in self.driver.current_url, (
             "TC02 FAIL: Để trống password nhưng hệ thống không ở lại trang Login."
         )
+
+    # -------------------------------------------------------------------------
+    # TC03: Để trống cả Username và Password (click Login trực tiếp)
+    # -------------------------------------------------------------------------
+    def test_TC03_empty_both_fields(self):
+        """
+        TC03: Để trống cả Username và Password
+        Steps:
+          1. Mở trang Login
+          2. Để trống cả 2 ô
+          3. Click nút Đăng nhập
+        Expected: Hệ thống từ chối đăng nhập và ở lại trang Login.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.clear_username()
+        login_page.clear_password()
+        login_page.click_login()
+
+        time.sleep(1.5)
+        assert "/Login" in self.driver.current_url, (
+            "TC03 FAIL: Để trống cả 2 trường nhưng hệ thống không ở lại trang Login."
+        )
