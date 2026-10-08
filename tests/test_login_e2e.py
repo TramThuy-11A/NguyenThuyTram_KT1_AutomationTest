@@ -150,3 +150,26 @@ class TestLoginE2E(BaseTest):
         assert "/Login" in self.driver.current_url, (
             "TC06 FAIL: Đăng nhập sai username nhưng không ở lại trang Login."
         )
+
+    # -------------------------------------------------------------------------
+    # TC07: Đăng nhập bằng nút 'Đăng nhập bằng e-mail UTC'
+    # -------------------------------------------------------------------------
+    def test_TC07_email_utc_redirect(self):
+        """
+        TC07: Đăng nhập bằng e-mail UTC
+        Steps:
+          1. Mở trang Login
+          2. Click nút 'Đăng nhập bằng e-mail UTC'
+        Expected: Chuyển hướng người dùng sang trang Google OAuth (accounts.google.com).
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+
+        href = login_page.get_email_utc_href()
+        assert "accounts.google.com" in href, f"TC07 FAIL: Href không trỏ sang Google OAuth: {href}"
+
+        login_page.click_email_utc_login()
+        time.sleep(3)
+        assert "google" in self.driver.current_url.lower(), (
+            f"TC07 FAIL: Không chuyển hướng đến Google. URL: {self.driver.current_url}"
+        )
