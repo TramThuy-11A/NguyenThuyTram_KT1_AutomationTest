@@ -374,3 +374,23 @@ class TestLoginE2E(BaseTest):
         assert "hotrokythuat.utc.edu.vn" in support_link.get_attribute("href"), (
             "TC16 FAIL: Link hỗ trợ kỹ thuật sai."
         )
+
+    # -------------------------------------------------------------------------
+    # TC17: Responsive Mobile (375x812px)
+    # -------------------------------------------------------------------------
+    def test_TC17_mobile_responsive_layout(self):
+        """
+        TC17: Kiểm tra giao diện trên kích thước Mobile
+        Steps:
+          1. Thu nhỏ kích thước cửa sổ về 375x812px (Mobile viewport)
+          2. Mở trang Login
+          3. Kiểm tra ô Username, Password và nút Đăng nhập vẫn hiển thị
+        Expected: Các thành phần form đăng nhập hiển thị đầy đủ trên màn hình mobile.
+        """
+        login_page = LoginPage(self.driver)
+        self.driver.set_window_size(375, 812)
+        login_page.open(self.BASE_URL)
+
+        assert login_page.is_displayed(login_page.USERNAME_INPUT), "TC17 FAIL: Ô Username không hiển thị trên mobile."
+        assert login_page.is_displayed(login_page.PASSWORD_INPUT), "TC17 FAIL: Ô Password không hiển thị trên mobile."
+        assert login_page.is_displayed(login_page.SUBMIT_BTN), "TC17 FAIL: Nút Đăng nhập không hiển thị trên mobile."
