@@ -258,3 +258,25 @@ class TestLoginE2E(BaseTest):
         assert "/Login" in self.driver.current_url, (
             f"TC11 FAIL: Lỗ hổng SQL Injection với payload {payload}"
         )
+
+    # -------------------------------------------------------------------------
+    # TC12: Nhập chuỗi ký tự quá dài (300+ ký tự)
+    # -------------------------------------------------------------------------
+    def test_TC12_long_input_string(self):
+        """
+        TC12: Chuỗi ký tự cực dài
+        Steps:
+          1. Mở trang Login
+          2. Nhập chuỗi 300 ký tự vào ô Username và Password
+          3. Click nút Đăng nhập
+        Expected: Hệ thống xử lý an toàn không treo, ở lại trang Login.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        long_str = "A" * 300
+        login_page.login(long_str, long_str)
+
+        time.sleep(2)
+        assert "/Login" in self.driver.current_url, (
+            "TC12 FAIL: Hệ thống lỗi khi nhập chuỗi ký tự quá dài."
+        )
