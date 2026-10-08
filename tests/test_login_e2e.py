@@ -280,3 +280,21 @@ class TestLoginE2E(BaseTest):
         assert "/Login" in self.driver.current_url, (
             "TC12 FAIL: Hệ thống lỗi khi nhập chuỗi ký tự quá dài."
         )
+
+    # -------------------------------------------------------------------------
+    # TC13: Đăng nhập sai nhiều lần liên tiếp (Brute force protection)
+    # -------------------------------------------------------------------------
+    def test_TC13_brute_force_attempts(self):
+        """
+        TC13: Đăng nhập sai nhiều lần liên tiếp
+        Steps:
+          1. Mở trang Login
+          2. Thực hiện đăng nhập sai 3 lần liên tiếp
+        Expected: Hệ thống không bị crash hoặc treo, luôn giữ tính ổn định.
+        """
+        login_page = LoginPage(self.driver)
+        for i in range(3):
+            login_page.open(self.BASE_URL)
+            login_page.login(self.VALID_USERNAME, f"Wrong_Attempt_{i}")
+            time.sleep(1)
+        assert "/Login" in self.driver.current_url
