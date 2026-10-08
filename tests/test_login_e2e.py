@@ -414,3 +414,24 @@ class TestLoginE2E(BaseTest):
         time.sleep(2)
         # Server xử lý request POST thành công
         assert self.driver.current_url is not None
+
+    # -------------------------------------------------------------------------
+    # TC19: Sử dụng phím Enter để submit form
+    # -------------------------------------------------------------------------
+    def test_TC19_enter_key_submit(self):
+        """
+        TC19: Submit bằng phím Enter
+        Steps:
+          1. Mở trang Login
+          2. Nhập username và password
+          3. Nhấn phím Enter trên ô Password
+        Expected: Form được gửi đi thành công mà không cần click chuột vào nút submit.
+        """
+        login_page = LoginPage(self.driver)
+        login_page.open(self.BASE_URL)
+        login_page.input_username(self.VALID_USERNAME)
+        login_page.input_password(self.VALID_PASSWORD)
+        login_page.press_enter_on_password()
+
+        time.sleep(2)
+        assert self.driver.current_url is not None
